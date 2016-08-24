@@ -44,11 +44,16 @@ node default {
   #   class { 'my_class': }
   notify { "Hello, I'm on my third docker, and my new name is ${::hostname}": }
   include examples::fundamentals
-    file {'/etc/motd':
-      ensure  => file,
-      owner   => 'root',
-      group   => 'root',
-      mode    => '0644',
-      content => 'managed the /etc/motd file.\n',
-    }
+  #  file {'/etc/motd':
+  #    ensure  => file,
+  #    owner   => 'root',
+  #    group   => 'root',
+  #    mode    => '0644',
+  #    content => "managed content of the /etc/motd file.\n",
+  #  }
+      exec { 'updatefile':
+        path    => '/etc/motd',
+        onlyif  => 'test -f /etc/motd',
+        creates => "cowsay 'Welcome to ${::fqdn}!' > /etc/motd",
+      }
 }
