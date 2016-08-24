@@ -43,7 +43,7 @@ node default {
   # Example:
   #   class { 'my_class': }
   notify { "Hello, I'm on my third docker, and my new name is ${::hostname}": }
-  include examples::fundamentals,
+  include examples::fundamentals
     file {'/etc/motd':
       ensure  => file,
       owner   => 'root',
