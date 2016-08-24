@@ -49,6 +49,6 @@ node default {
       owner   => 'root',
       group   => 'root',
       mode    => '0644',
-      content => "managed the /etc/motd file.\n",
+      content => 'managed the /etc/motd file.\n',
     }
 }
