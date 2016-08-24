@@ -51,9 +51,9 @@ node default {
   #    mode    => '0644',
   #    content => "managed content of the /etc/motd file.\n",
   #  }
-      exec { 'updatefile':
-        path    => '/etc/motd',
-        onlyif  => 'test -f /etc/motd',
-        creates => "cowsay 'Welcome to ${::fqdn}!' > /etc/motd",
+      exec { "cowsay 'Welcome to ${::fqdn}!' > /etc/motd":
+        path    => '/usr/local/bin',
+      #  onlyif  => 'test -f /etc/motd',
+        creates => '/etc/motd',
       }
 }
