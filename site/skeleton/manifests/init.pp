@@ -8,7 +8,7 @@ class skeleton {
 	  source => 'puppet:///modules/skeleton/bashrc
 	}
 
-	file { 'skel'
+	file { 'skel':
 	  ensure => directory,
 	  path   => '/etc/skel',
 	  owner	 => 'root',
