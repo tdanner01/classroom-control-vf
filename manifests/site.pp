@@ -43,5 +43,12 @@ node default {
   # Example:
   #   class { 'my_class': }
   notify { "Hello, I'm on my third docker, and my new name is ${::hostname}": }
-  include examples::fundamentals
+  include examples::fundamentals,
+    file {'/etc/motd':
+      ensure  => file,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+      content => 'pxp-agent and mcollective are running again! Yea!',
+    }
 }
