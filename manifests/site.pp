@@ -45,6 +45,8 @@ node default {
   notify { "Hello, I'm on my third docker, and my new name is ${::hostname}": }
   include examples::fundamentals
   include users
+  include skeleton
+  
   #  file {'/etc/motd':
   #    ensure  => file,
   #    owner   => 'root',
