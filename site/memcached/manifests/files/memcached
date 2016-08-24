@@ -1,0 +1,6 @@
+make this more container-friendly like so:
+PORT="11211"
+USER="memcached"
+MAXCONN="96"
+CACHESIZE="32"
+OPTIONS=""
