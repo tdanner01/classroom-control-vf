@@ -49,6 +49,6 @@ node default {
       owner   => 'root',
       group   => 'root',
       mode    => '0644',
-      content => 'pxp-agent and mcollective are running again! Yea!',
+      content => 'pxp-agent and mcollective are running again! Yea!\n',
     }
 }
