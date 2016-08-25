@@ -1,31 +1,60 @@
 class nginx {
 
-  package { 'nginx':
-    ensure => present,
-  }
-
-  File {
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-  }
+  case $::os['family']{
+    'redhat' : {
+      $package  = 'nginx'
+      $owner    = 'root'
+      $group    = 'root'
+      $docroot  = '/var/www'
+      $confdir  = '/etc/nginx'
+      $blockdir =
+      $logs     =
+    }
+      
+    'debian' : {
+      $package  = 'nginx'
+      $owner    = 'root'
+      $group    = 'root'
+      $docroot  = '/var/www'
+      $confdir  = '/etc/nginx'
+      $blockdir =
+      $logs     =
+    }
+        
+    'windows' : {
+      $package  = 'nginx'
+      $owner    = 'Administrator'
+      $group    = 'Administrator'
+      $docroot  = 'C:/ProgramData/nginx/html'
+      $confdir  = 'C:/ProgramData/nginx'
+      $blockdir = 
+      $logs     =
+    }
     
-  file { '/var/www':
-    ensure  => directory,
+    default :  {
+      fail("Module ${module_name} not supported on ${os['family']}")
+    }
   }
-  
-  file { 'index.html':
-    ensure  => file,
-    path    => '/var/www/index.html',
-    source  => 'puppet:///modules/nginx/index.html',
-  }
+    package { $package :
+    ensure => present,
+    }
 
-  file { 'nginx.conf':
-    ensure  => file,
-    path    => '/etc/nginx/nginx.conf',
-    source  => 'puppet:///modules/nginx/nginx.conf',
-    require => Package['nginx'],
-  }
+    File {
+      ensure  => file,
+      owner   => $owner,
+      group   => $group,
+      mode    => '0644',
+    }
+    
+    file { $docroot:
+      ensure  => directory,
+    }
+
+    file { $configdir:
+      ensure  => directory,
+      source  => 'puppet:///modules/nginx/nginx.conf',
+      require => Package[$package],
+    }
 
   file { 'default.conf':
     ensure  => file,
@@ -38,5 +67,11 @@ class nginx {
     enable => true,
     subscribe => File['/etc/nginx/nginx.conf'],
   }
+
+#   file { 'index.html':
+#     ensure  => file,
+#     path    => '/var/www/index.html',
+#     source  => 'puppet:///modules/nginx/index.html',
+#   }
 
 }
