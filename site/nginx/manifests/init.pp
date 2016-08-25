@@ -7,8 +7,8 @@ class nginx {
       $group    = 'root'
       $docroot  = '/var/www'
       $confdir  = '/etc/nginx'
-      $blockdir =
-      $logs     =
+      $blockdir = '/etc/nginx/conf.d'
+      $logs     = '/var/log/nginx'
     }
       
     'debian' : {
@@ -17,8 +17,8 @@ class nginx {
       $group    = 'root'
       $docroot  = '/var/www'
       $confdir  = '/etc/nginx'
-      $blockdir =
-      $logs     =
+      $blockdir = '/etc/nginx/conf.d'
+      $logs     = '/var/log/nginx'
     }
         
     'windows' : {
@@ -27,8 +27,8 @@ class nginx {
       $group    = 'Administrator'
       $docroot  = 'C:/ProgramData/nginx/html'
       $confdir  = 'C:/ProgramData/nginx'
-      $blockdir = 
-      $logs     =
+      $blockdir = 'C:/ProgramData/nginx/conf.d'
+      $logs     = 'C:/ProgramData/nginx/logs'
     }
     
     default :  {
@@ -56,17 +56,20 @@ class nginx {
       require => Package[$package],
     }
 
-  file { 'default.conf':
-    ensure  => file,
-    path    => '/etc/nginx/conf.d/default.conf',
-    source  => 'puppet:///modules/nginx/default.conf',
-  }
+    file { $blockdir:
+      ensure  => directory,
+      source  => 'puppet:///modules/nginx/default.conf',
+    }
 
-  service { 'nginx':
-    ensure => running,
-    enable => true,
-    subscribe => File['/etc/nginx/nginx.conf'],
-  }
+    file { $logs:
+      ensure  => directory,
+    }
+
+    service { 'nginx':
+      ensure    => running,
+      enable    => true,
+      subscribe => [ File[$configdir], File[$blockdir] ],
+    }
 
 #   file { 'index.html':
 #     ensure  => file,
