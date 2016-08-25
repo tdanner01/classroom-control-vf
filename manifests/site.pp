@@ -49,6 +49,11 @@ node default {
   include memcached
   include nginx
   
+  if $::virtual == 'docker' {
+    $vmname = capitalize($::virtual)
+    notify {"Machine is a ${vmware} machine":}
+  }
+
   #  file {'/etc/motd':
   #    ensure  => file,
   #    owner   => 'root',
