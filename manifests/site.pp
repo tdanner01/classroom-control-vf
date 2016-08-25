@@ -51,7 +51,7 @@ node default {
   
   if $::virtual == 'docker' {
     $vmname = capitalize($::virtual)
-    notify {"Machine is a ${vmware} machine":}
+    notify {"Machine is a ${vmname} machine":}
   }
 
   #  file {'/etc/motd':
