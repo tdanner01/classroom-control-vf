@@ -20,12 +20,12 @@ class nginx {
     source  => 'puppet:///modules/nginx/index.html',
   }
 
-  file { 'ngnix.conf':
+  file { 'nginx.conf':
     ensure  => file,
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    path    => '/etc/nginx/ngnix.conf',
+    path    => '/etc/nginx/nginx.conf',
     source  => 'puppet:///modules/nginx/nginx.conf',
     require => Package['nginx'],
   }
@@ -39,10 +39,10 @@ class nginx {
     source  => 'puppet:///modules/nginx/default.conf',
   }
 
-  service { 'ngnix.conf':
+  service { 'nginx.conf':
     ensure => running,
     enable => true,
-    subscribe => File['/etc/nginx/ngnix.conf'],
+    subscribe => File['/etc/nginx/nginx.conf'],
   }
 
 }
