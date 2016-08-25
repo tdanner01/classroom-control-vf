@@ -1,6 +1,5 @@
-apache::vhost { 'elmo.puppet.com':
-port => '80',
-docroot => '/var/www/muppets/elmo',
-options => 'Indexes MultiViews',
-notify => Service['httpd'],
+class users::admins {
+  users::managed_user{'jose':}
+  users::managed_user{'alice':}
+  users::managed_user{'chen':}
 }
