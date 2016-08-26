@@ -1,3 +1,3 @@
-class site::yumepel {
+class wrappers::yumepel {
 include epel
 
