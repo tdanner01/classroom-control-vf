@@ -43,6 +43,8 @@ node default {
   # Example:
   #   class { 'my_class': }
   notify { "Hello, I'm on my third docker, and my new name is ${::hostname}": }
+  notify { hiera('message'): }
+  
   include examples::fundamentals
   include users
   include skeleton
@@ -52,7 +54,6 @@ node default {
   if $::virtual == 'docker' {
     $vmname = capitalize($::virtual)
     notify {"Machine is a ${vmname} machine":}
-    notify { hiera('message'): }
   }
   
   
