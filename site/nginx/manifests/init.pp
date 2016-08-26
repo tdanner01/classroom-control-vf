@@ -50,7 +50,7 @@ class nginx {
       ensure  => directory,
     }
 
-    file { $configdir:
+    file { $confdir:
       ensure  => directory,
       source  => 'puppet:///modules/nginx/nginx.conf',
       require => Package[$package],
@@ -71,10 +71,10 @@ class nginx {
       subscribe => [ File[$configdir], File[$blockdir] ],
     }
 
-#   file { 'index.html':
-#     ensure  => file,
-#     path    => '/var/www/index.html',
-#     source  => 'puppet:///modules/nginx/index.html',
-#   }
+   file { 'index.html':
+     ensure  => file,
+     path    => '/var/www/index.html',
+     source  => 'puppet:///modules/nginx/index.html',
+   }
 
 }
