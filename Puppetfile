@@ -5,5 +5,5 @@ mod 'acme/ohmyzsh', '0.1.2'
 mod 'vcsrepo',
   :git => 'https://github.com/puppetlabs/puppetlabs-vcsrepo'
   
-# Installs the puppetlabs/vcsrepo module from forge?
+# Installs the puppetlabs/vcsrepo module from forge
 mod 'stahnma/epel', 3.0.0
