@@ -67,8 +67,8 @@ class nginx {
 #    }
 
     file { 'default.conf':
-      path => "${blockdir}/defaults.conf",
-      content => template('nginx/defaults.conf.erb'),
+      path => "${blockdir}/default.conf",
+      content => template('nginx/default.conf.erb'),
     }
 
     file { $logs:
