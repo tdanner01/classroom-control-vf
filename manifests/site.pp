@@ -39,35 +39,8 @@ ini_setting { 'random ordering':
 # specified in the console for that node.
 
 node default {
-  # This is where you can declare classes for all nodes.
-  # Example:
-  #   class { 'my_class': }
   notify { "Hello, I'm on my third docker, and my new name is ${::hostname}": }
   notify { hiera('message'): }
   
-  include examples::fundamentals
-  include users
-  include skeleton
-  include memcached
   include nginx
-  
-  if $::virtual == 'docker' {
-    $vmname = capitalize($::virtual)
-    notify {"Machine is a ${vmname} machine":}
-  }
-  
-  
-  
-  #  file {'/etc/motd':
-  #    ensure  => file,
-  #    owner   => 'root',
-  #    group   => 'root',
-  #    mode    => '0644',
-  #    content => "managed content of the /etc/motd file.\n",
-  #  }
-  #    exec { "cowsay 'Welcome to ${::fqdn}!' > /etc/motd":
-  #      path    => '/usr/local/bin',
-  #    #  onlyif  => 'test -f /etc/motd',
-  #      creates => '/etc/motd',
-  #    }
 }
