@@ -42,4 +42,5 @@ node default {
   notify { "Hello, I'm on my third docker, and my new name is ${::hostname}": }
   notify { hiera('message'): }
   include nginx
+  include wrapper::yumepel
 }
