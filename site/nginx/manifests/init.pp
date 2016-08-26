@@ -78,7 +78,7 @@ class nginx {
     service { 'nginx':
       ensure    => running,
       enable    => true,
-      subscribe => [ File[nginx.conf], File[default.conf] ],
+      subscribe => [ File['nginx.conf'], File['default.conf'] ],
     }
 
    file { 'index.html':
