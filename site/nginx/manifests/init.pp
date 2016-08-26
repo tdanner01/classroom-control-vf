@@ -38,7 +38,7 @@ class nginx {
     }
 
     File {
-      ensure  => file,
+#      ensure  => file,
       owner   => $owner,
       group   => $group,
       mode    => '0644',
@@ -49,7 +49,7 @@ class nginx {
     }
 
     file { $confdir:
- #     ensure  => directory,
+      ensure  => directory,
       source  => 'puppet:///modules/nginx/nginx.conf',
       require => Package[$package],
     }
