@@ -49,7 +49,7 @@ class nginx {
     }
 
     file { $confdir:
-      ensure  => directory,
+ #     ensure  => directory,
       source  => 'puppet:///modules/nginx/nginx.conf',
       require => Package[$package],
     }
