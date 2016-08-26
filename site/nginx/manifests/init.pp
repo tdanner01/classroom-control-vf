@@ -38,7 +38,7 @@ class nginx {
     }
 
     File {
-#      ensure  => file,
+      ensure  => file,
       owner   => $owner,
       group   => $group,
       mode    => '0644',
@@ -48,15 +48,27 @@ class nginx {
       ensure  => directory,
     }
 
-    file { $confdir:
-      ensure  => directory,
-      source  => 'puppet:///modules/nginx/nginx.conf',
-      require => Package[$package],
+# this code block is wrong!
+#    file { $confdir:
+#      ensure  => directory,
+#      source  => 'puppet:///modules/nginx/nginx.conf',
+#      require => Package[$package],
+#    }
+
+    file { 'nginx.conf':
+      path    => "${confdir}/nginx.conf",
+      content => template('nginx/nginx.conf.erb'),
     }
 
-    file { $blockdir:
-      ensure  => directory,
-      source  => 'puppet:///modules/nginx/default.conf',
+# this code block is wrong!
+#    file { $blockdir:
+#      ensure  => directory,
+#      source  => 'puppet:///modules/nginx/default.conf',
+#    }
+
+    file { 'default.conf':
+      path => "${blockdir}/default.conf",
+      content => template('nginx/default.conf.erb'),
     }
 
     file { $logs:
@@ -66,7 +78,7 @@ class nginx {
     service { 'nginx':
       ensure    => running,
       enable    => true,
-      subscribe => [ File[$confdir], File[$blockdir] ],
+      subscribe => [ File[nginx.conf], File[default.conf] ],
     }
 
    file { 'index.html':
