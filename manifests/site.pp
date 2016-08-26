@@ -53,7 +53,9 @@ node default {
     $vmname = capitalize($::virtual)
     notify {"Machine is a ${vmname} machine":}
   }
-
+  
+  notify (hiera('message'))
+  
   #  file {'/etc/motd':
   #    ensure  => file,
   #    owner   => 'root',
