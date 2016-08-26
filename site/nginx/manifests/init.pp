@@ -25,6 +25,14 @@ class nginx {
       fail("Module ${module_name} not supported on ${os['family']}")
     }
   }
+  
+    $user = $::os['family'] ? {
+      'redhat'  => 'nginx',
+      'debian'  => 'www',
+      'windows' => 'nobody',
+      default   => 'nobody',
+    }
+
     package { $package :
     ensure => present,
     }
